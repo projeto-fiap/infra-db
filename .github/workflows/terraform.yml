@@ -24,17 +24,6 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-      - name: Check for existing DB instance
-        run: |
-          output=$(aws rds describe-db-instances --db-instance-identifier projeto-fiap)
-            if [ "$output" == "An error occurred (DBInstanceNotFound) when calling the DescribeDBInstances operation: DBInstance projeto-fiap not found." ]; then
-              echo "$output"
-            else 
-              echo "$output" 
-              exit 1
-            fi
-          shell: bash
-        id: check_db
       - name: Terraform Init
         run: terraform init
 
