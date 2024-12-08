@@ -27,12 +27,13 @@ jobs:
         run: |
           output=$(aws rds describe-db-instances --db-instance-identifier projeto-fiap)
           if [ "$output" == "valor_desejado" ]; then
-            echo "Comando retornou o valor desejado." 
+            echo $output
           else 
-            echo "Comando não retornou o valor desejado." 
+            echo $output 
             exit 1
           fi
         shell: bash
+
         id: check_db
       - name: Terraform Init
         run: terraform init
