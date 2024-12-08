@@ -1,3 +1,4 @@
 # Default igno      red files
 /shelf/
 /.idea/workspace.xml
+!/terraform.tfstate.backup
