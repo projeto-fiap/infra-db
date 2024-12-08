@@ -23,7 +23,9 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
-
+      - name: Check for existing DB instance
+        run: |
+          if aws rds describe-db-instances --db-instance-identifier my-postgres-instance > /dev/null 2>&1; then echo "DB instance exists" exit 0 else echo "DB instance does not exist" exit 1 fi id: check_db
       - name: Terraform Init
         run: terraform init
 
