@@ -4,6 +4,7 @@ provider "aws" {
 
 resource "aws_vpc" "main_vpc" {
   cidr_block = "10.0.0.0/16"
+  id = "vpc_postgres"
   tags = {
     Name = "fiap_vpc"
     Identifier = "fiap_vpc"
@@ -28,7 +29,6 @@ resource "aws_subnet" "main_subnet_2" {
   tags = {
     Name = "main_subnet_2"
     Identifier = "fiap_subnet2"
-
   }
 }
 
