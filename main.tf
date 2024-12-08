@@ -5,7 +5,9 @@ provider "aws" {
 resource "aws_vpc" "main_vpc" {
   cidr_block = "10.0.0.0/16"
   tags = {
-    Name = "main_vpc"
+    Name = "fiap_vpc"
+    Identifier = "fiap_vpc"
+
   }
 }
 
@@ -15,6 +17,7 @@ resource "aws_subnet" "main_subnet_1" {
   availability_zone = "us-east-1a"
   tags = {
     Name = "main_subnet_1"
+    Identifier = "fiap_subnet1"
   }
 }
 
@@ -24,6 +27,8 @@ resource "aws_subnet" "main_subnet_2" {
   availability_zone = "us-east-1b"
   tags = {
     Name = "main_subnet_2"
+    Identifier = "fiap_subnet2"
+
   }
 }
 
@@ -76,5 +81,7 @@ resource "aws_db_subnet_group" "main_subnet_group" {
 
   tags = {
     Name = "main_subnet_group"
+    Identifier = "fiap_subnetgroup"
+
   }
 }
