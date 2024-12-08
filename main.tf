@@ -48,6 +48,7 @@ resource "aws_security_group" "db_sg" {
 
   tags = {
     Name = "db_sg"
+    Identifier = "fiap_security_group"
   }
 }
 
