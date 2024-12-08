@@ -20,7 +20,7 @@ resource "aws_subnet" "main_subnet" {
 
 resource "aws_security_group" "db_sg" {
   name        = "db_sg"
-  description = "grupo de segurança para o banco de dados postgresql"
+  description = "grupo de seguranca para o banco de dados postgresql"
   vpc_id      = aws_vpc.main_vpc.id
 
   ingress {
