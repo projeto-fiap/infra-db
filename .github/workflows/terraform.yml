@@ -27,7 +27,7 @@ jobs:
       - name: Check for existing DB instance
         run: |
           output=$(aws rds describe-db-instances --db-instance-identifier projeto-fiap)
-            if [ "$output" == "valor_desejado" ]; then
+            if [ "$output" == "An error occurred (DBInstanceNotFound) when calling the DescribeDBInstances operation: DBInstance projeto-fiap not found." ]; then
               echo "$output"
             else 
               echo "$output" 
