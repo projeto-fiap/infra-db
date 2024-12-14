@@ -9,5 +9,5 @@ resource "aws_db_instance" "postgres_instance" {
   username             = "postgres_user"
   password             = "mypassword"
   skip_final_snapshot  = true
-  vpc_security_group_ids = ["vpc-09dd19bba155232c5"]
+  vpc_security_group_ids = "vpc-09dd19bba155232c5"
 }
