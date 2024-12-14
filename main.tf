@@ -9,4 +9,6 @@ resource "aws_db_instance" "postgres_instance" {
   password             = "mypassword"
   skip_final_snapshot  = true
   publicly_accessible = true
+  vpc_security_group_ids = ["sg-00d2805cd528877e3"]
+
 }
