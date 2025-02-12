@@ -50,6 +50,20 @@ resource "aws_db_instance" "postgres_instance_tech_challenge_payments" {
   vpc_security_group_ids = [aws_security_group.db_security_group.id]
 }
 
+resource "aws_db_instance" "postgres_instance_ms_kitchen" {
+  allocated_storage    = 20
+  engine               = "postgres"
+  engine_version       = "17"
+  identifier           = "mskitchendb"
+  db_name              = "mskitchendb"
+  instance_class       = "db.t3.micro"
+  username             = "postgres"
+  password             = "postgres"
+  skip_final_snapshot  = true
+  publicly_accessible  = true
+  vpc_security_group_ids = [aws_security_group.db_security_group.id]
+}
+
 resource "aws_security_group" "docdb_security_group" {
   name        = "docdb-security-group"
   description = "Allow traffic for DocumentDB"
