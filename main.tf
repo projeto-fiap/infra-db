@@ -66,38 +66,3 @@ resource "aws_db_instance" "postgres_instance_ms_kitchen" {
   publicly_accessible  = true
   vpc_security_group_ids = [aws_security_group.db_security_group.id]
 }
-
-resource "aws_security_group" "docdb_security_group" {
-  name        = "docdb-security-group"
-  description = "Allow traffic for DocumentDB"
-  vpc_id      = data.aws_vpc.vpc.id
-
-  ingress {
-    from_port   = 27017
-    to_port     = 27017
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Ajuste conforme a necessidade de restrição de IPs
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-# Cluster DocumentDB
-resource "aws_docdb_cluster" "documentdb_cluster" {
-  cluster_identifier      = "documentdb-cluster"
-  master_username         = "adminuser"
-  master_password         = "admin12345"
-  backup_retention_period = 7
-  preferred_backup_window = "07:00-09:00"
-  engine_version          = "4.0.0"
-  skip_final_snapshot  = true
-  vpc_security_group_ids  = [aws_security_group.docdb_security_group.id]
-
-  storage_encrypted = true
-
-}
