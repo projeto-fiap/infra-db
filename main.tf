@@ -1,3 +1,6 @@
+provider "aws" {
+  region = "us-east-1" # Specify your desired region
+}
 data "aws_vpc" "vpc" {
   cidr_block =  "172.31.0.0/16"
 }
@@ -68,19 +71,4 @@ resource "aws_security_group" "docdb_security_group" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-# Cluster DocumentDB
-resource "aws_docdb_cluster" "documentdb_cluster" {
-  cluster_identifier      = "documentdb-cluster"
-  master_username         = "adminuser"
-  master_password         = "admin12345"
-  backup_retention_period = 7
-  preferred_backup_window = "07:00-09:00"
-  engine_version          = "4.0.0"
-  skip_final_snapshot  = true
-  vpc_security_group_ids  = [aws_security_group.docdb_security_group.id]
-
-  storage_encrypted = true
-
 }

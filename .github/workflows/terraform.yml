@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  create-postgres:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,3 +29,25 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+  create-mongo:
+    runs-on: ubuntu-latest
+    environment:
+      name: hml
+    needs:
+      - analysis-sonarqube
+      - integrated-tests
+
+    steps:
+      - name: Update Kube Config
+        run: aws eks update-kubeconfig --name kubernetes-tech-challenge --region us-east-1
+      - name: Current Context
+        run: kubectl config current-context
+      - name: Deploy Kubernetes Resources
+        run: |
+          kubectl apply -f k8s/mongo-pv.yaml -n default-namespace
+          kubectl apply -f k8s/mongo-pvc.yaml -n default-namespace
+          kubectl apply -f k8s/mongo-deployment.yaml -n default-namespace
+          kubectl apply -f k8s/mongo-service.yaml -n default-namespace
