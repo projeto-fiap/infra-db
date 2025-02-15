@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  create-postgres:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,3 +29,28 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
+
+  create-mongo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+
+      - name: Update Kube Config
+        run: aws eks update-kubeconfig --name kubernetes-tech-challenge --region us-east-1
+      - name: Current Context
+        run: kubectl config current-context
+      - name: Deploy Kubernetes Resources
+        run: |
+          kubectl apply -f k8s/mongo-pv.yaml -n default-namespace
+          kubectl apply -f k8s/mongo-pvc.yaml -n default-namespace
+          kubectl apply -f k8s/mongo-deployment.yaml -n default-namespace
+          kubectl apply -f k8s/mongo-service.yaml -n default-namespace

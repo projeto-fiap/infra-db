@@ -1,3 +1,6 @@
+provider "aws" {
+  region = "us-east-1" # Specify your desired region
+}
 data "aws_vpc" "vpc" {
   cidr_block =  "172.31.0.0/16"
 }
