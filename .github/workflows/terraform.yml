@@ -34,11 +34,6 @@ jobs:
         run: terraform apply -auto-approve
   create-mongo:
     runs-on: ubuntu-latest
-    environment:
-      name: hml
-    needs:
-      - analysis-sonarqube
-      - integrated-tests
 
     steps:
       - name: Update Kube Config
