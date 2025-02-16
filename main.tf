@@ -1,6 +1,7 @@
 provider "aws" {
   region = "us-east-1" # Specify your desired region
 }
+
 data "aws_vpc" "vpc" {
   cidr_block =  "172.31.0.0/16"
 }
@@ -66,3 +67,18 @@ resource "aws_db_instance" "postgres_instance_ms_kitchen" {
   publicly_accessible  = true
   vpc_security_group_ids = [aws_security_group.db_security_group.id]
 }
+
+resource "aws_db_instance" "postgres_instance_tech_challenge_order" {
+  allocated_storage    = 20
+  engine               = "postgres"
+  engine_version       = "17"
+  identifier           = "projetofiaporder"
+  db_name              = "orderdb"
+  instance_class       = "db.t3.micro"
+  username             = "postgres"
+  password             = "postgres"
+  skip_final_snapshot  = true
+  publicly_accessible  = true
+  vpc_security_group_ids = [aws_security_group.db_security_group.id]
+}
+
